@@ -1,0 +1,10 @@
+node_modules
+yarn.lock
+.DS_Store
+.idea/
+.expo/
+build/
+
+.env
+
+yarn-error.log
