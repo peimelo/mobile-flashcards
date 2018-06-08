@@ -3,8 +3,8 @@ import {
   createBottomTabNavigator,
   createMaterialTopTabNavigator
 } from 'react-navigation'
-import Decks from './Decks'
-import NewDeck from './NewDeck'
+import Decks from '../containers/Decks'
+import NewDeck from '../containers/NewDeck'
 
 const Tabs = {
   Decks: {
