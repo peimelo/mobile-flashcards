@@ -7,7 +7,7 @@ class NewDeck extends React.Component {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>NEW DECK!</Text>
       </View>
-    );
+    )
   }
 }
 

@@ -10,16 +10,16 @@ const Tabs = {
   Decks: {
     screen: Decks,
     navigationOptions: {
-      tabBarLabel: 'DECKS',
+      tabBarLabel: 'DECKS'
     }
   },
   NewDeck: {
     screen: NewDeck,
     navigationOptions: {
-      tabBarLabel: 'NEW DECK',
+      tabBarLabel: 'NEW DECK'
     }
-  },
-};
+  }
+}
 
 export default MainNavigator = Platform.OS === 'ios'
   ? createBottomTabNavigator(Tabs)
