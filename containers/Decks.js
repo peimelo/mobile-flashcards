@@ -15,7 +15,8 @@ class Decks extends React.Component {
 
     return (
       <ListItem
-        onPress={() => navigation.navigate('DeckDetail', { title: item.title })}>
+        onPress={() => navigation.navigate('DeckDetail', { title: item.title })}
+      >
         <Left>
           <Text>{item.title}</Text>
         </Left>

@@ -8,6 +8,7 @@ import {
 } from 'react-navigation'
 import DeckDetail from '../containers/DeckDetail'
 import Decks from '../containers/Decks'
+import NewCard from '../containers/NewCard'
 import NewDeck from '../containers/NewDeck'
 
 const Tabs = {
@@ -43,5 +44,11 @@ export default MainNavigator = createStackNavigator({
     navigationOptions: ({ navigation }) => ({
       title: navigation.state.params.title,
     }),
+  },
+  NewCard: {
+    screen: NewCard,
+    navigationOptions: {
+      title: "New Card"
+    }
   }
 })
