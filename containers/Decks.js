@@ -1,7 +1,8 @@
+import { Content, Left, ListItem, Right, Text } from 'native-base'
 import React from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { FlatList } from 'react-native'
 import { connect } from 'react-redux'
-import { fetchDecks } from '../actions/decks'
+import { fetchDecks } from '../actions'
 
 class Decks extends React.Component {
   componentDidMount() {
@@ -9,24 +10,19 @@ class Decks extends React.Component {
   }
 
   renderItem = ({ item }) => {
-    return (
-      <View>
-        <Text>{item.title}</Text>
-        <Text>{item.questions.length}{' cards'}</Text>
-      </View>
-    )
-  }
+    const { navigation } = this.props
+    const count = item.questions.length
 
-  renderSeparator = () => {
     return (
-      <View
-        style={{
-          height: 1,
-          width: '86%',
-          backgroundColor: '#CED0CE',
-          marginLeft: '14%'
-        }}
-      />
+      <ListItem
+        onPress={() => navigation.navigate('DeckDetail', { title: item.title })}>
+        <Left>
+          <Text>{item.title}</Text>
+        </Left>
+        <Right>
+          <Text note>{`${count} ${count > 1 ? 'cards' : 'card'}`}</Text>
+        </Right>
+      </ListItem>
     )
   }
 
@@ -34,21 +30,22 @@ class Decks extends React.Component {
     const { decks } = this.props
 
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Content>
         <FlatList
           data={decks}
-          ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={item => item.title}
           renderItem={this.renderItem}
         />
-      </View>
+      </Content>
     )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    decks: state.decks.data
+    decks: Object.keys(state).reduce((decks, id) => {
+      return decks.concat(state[id])
+    }, [])
   }
 }
 
