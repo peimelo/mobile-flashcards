@@ -3,6 +3,7 @@ import React from 'react'
 import { FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks } from '../actions'
+import sortBy from 'sort-by';
 
 class Decks extends React.Component {
   componentDidMount() {
@@ -46,7 +47,7 @@ function mapStateToProps(state) {
   return {
     decks: Object.keys(state).reduce((decks, id) => {
       return decks.concat(state[id])
-    }, [])
+    }, []).sort(sortBy('title'))
   }
 }
 
