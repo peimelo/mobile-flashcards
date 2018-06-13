@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import FlashStatusBar from './components/FlashStatusBar'
 import MainNavigator from './components/MainNavigator'
 import store from './store'
+import { setLocalNotification } from './utils/helpers'
 
 export default class App extends React.Component {
   state = {
@@ -17,6 +18,10 @@ export default class App extends React.Component {
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf')
     })
     this.setState({ loading: false })
+  }
+
+  componentDidMount() {
+    setLocalNotification()
   }
 
   render() {

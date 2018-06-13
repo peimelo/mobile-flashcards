@@ -10,9 +10,10 @@ import DeckDetail from '../containers/DeckDetail'
 import Decks from '../containers/Decks'
 import NewCard from '../containers/NewCard'
 import NewDeck from '../containers/NewDeck'
+import Quiz from '../containers/Quiz'
 
-const Tabs = {
-  Decks: {
+const tabs = {
+  decks: {
     screen: Decks,
     navigationOptions: {
       tabBarLabel: 'DECKS',
@@ -20,7 +21,7 @@ const Tabs = {
                                              color={tintColor} />
     }
   },
-  NewDeck: {
+  newDeck: {
     screen: NewDeck,
     navigationOptions: {
       tabBarLabel: 'NEW DECK',
@@ -31,24 +32,30 @@ const Tabs = {
 }
 
 export default MainNavigator = createStackNavigator({
-  Home: {
+  home: {
     screen: Platform.OS === 'ios'
-      ? createBottomTabNavigator(Tabs)
-      : createMaterialTopTabNavigator(Tabs),
+      ? createBottomTabNavigator(tabs)
+      : createMaterialTopTabNavigator(tabs),
     navigationOptions: {
       header: null
     }
   },
-  DeckDetail: {
+  deckDetail: {
     screen: DeckDetail,
     navigationOptions: ({ navigation }) => ({
       title: navigation.state.params.title,
     }),
   },
-  NewCard: {
+  newCard: {
     screen: NewCard,
     navigationOptions: {
-      title: "New Card"
+      title: "Create New Question"
+    }
+  },
+  quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: "Quiz"
     }
   }
 })

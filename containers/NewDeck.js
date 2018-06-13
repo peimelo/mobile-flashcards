@@ -10,11 +10,13 @@ class NewDeck extends React.Component {
   }
 
   handleSubmit = () => {
-    if (!!this.state.title.length) {
+    const { title } = this.state
+
+    if (!!title.length) {
       const { navigation } = this.props
-      this.props.addDeck(this.state.title).then(() => {
+      this.props.addDeck(title).then(() => {
         this.setState({ title: '' })
-        navigation.navigate('Decks')
+        navigation.navigate('deckDetail', { title })
       })
     }
   }
@@ -28,7 +30,9 @@ class NewDeck extends React.Component {
           onChangeText={(title) => this.setState({ title })}
           value={this.state.title}
         />
-        <Button primary onPress={this.handleSubmit}><Text>Submit</Text></Button>
+        <Button primary onPress={this.handleSubmit}>
+          <Text>Create Deck</Text>
+        </Button>
       </KeyboardAvoidingView>
     )
   }

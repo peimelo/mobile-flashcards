@@ -12,10 +12,12 @@ class DeckDetail extends React.Component {
       <Content>
         <Text>{title}</Text>
         <Text note>{`${count} ${count > 1 ? 'cards' : 'card'}`}</Text>
-        <Button light onPress={() => navigation.navigate('NewCard', { title })}>
-          <Text>AddCard</Text>
+        <Button light onPress={() => navigation.navigate('newCard', { title })}>
+          <Text>Create New Question</Text>
         </Button>
-        <Button dark><Text>Start Quiz</Text></Button>
+        <Button dark onPress={() => navigation.navigate('quiz', { title })}>
+          <Text>Start a Quiz</Text>
+        </Button>
       </Content>
     )
   }

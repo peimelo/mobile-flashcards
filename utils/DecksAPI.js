@@ -31,6 +31,7 @@ export function addCard(title, card) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(response => {
     const questions = JSON.parse(response)[title].questions;
     questions.push(card);
+
     AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(
       deck(title, questions)
     ));
