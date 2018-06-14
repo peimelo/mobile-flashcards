@@ -27,7 +27,7 @@ export const initialData = {
   }
 }
 
-export function addCard(title, card) {
+export function addCardToDeck(title, card) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(response => {
     const questions = JSON.parse(response)[title].questions;
     questions.push(card);
@@ -38,13 +38,13 @@ export function addCard(title, card) {
   });
 }
 
-export function addDeck(title) {
+export function saveDeckTitle(title) {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(
     deck(title, [])
   ))
 }
 
-export function getAll() {
+export function getDecks() {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(response => {
     if (response === null) {
       AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))

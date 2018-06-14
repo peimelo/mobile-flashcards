@@ -1,8 +1,18 @@
-import { Button, Text } from 'native-base'
+import {
+  Button,
+  Card,
+  CardItem,
+  Container,
+  Content,
+  Input,
+  Item,
+  Label,
+  Text
+} from 'native-base'
 import React from 'react'
-import { KeyboardAvoidingView, StyleSheet, TextInput } from 'react-native'
+import { KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
-import { addDeck } from '../actions'
+import { saveDeckTitle } from '../actions'
 
 class NewDeck extends React.Component {
   state = {
@@ -10,11 +20,11 @@ class NewDeck extends React.Component {
   }
 
   handleSubmit = () => {
+    const { navigation, saveDeckTitle } = this.props
     const { title } = this.state
 
     if (!!title.length) {
-      const { navigation } = this.props
-      this.props.addDeck(title).then(() => {
+      saveDeckTitle(title).then(() => {
         this.setState({ title: '' })
         navigation.navigate('deckDetail', { title })
       })
@@ -22,36 +32,42 @@ class NewDeck extends React.Component {
   }
 
   render() {
+    const { title } = this.state
+
     return (
-      <KeyboardAvoidingView style={styles.container} behavior='padding'>
-        <Text>What is the title of your new deck?</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(title) => this.setState({ title })}
-          value={this.state.title}
-        />
-        <Button primary onPress={this.handleSubmit}>
-          <Text>Create Deck</Text>
-        </Button>
-      </KeyboardAvoidingView>
+      <Container>
+        <Content padder>
+          <KeyboardAvoidingView behavior='padding'>
+            <Card>
+              <CardItem header>
+                <Text>New Deck</Text>
+              </CardItem>
+              <CardItem>
+                <Item floatingLabel last>
+                  <Label>What is the title of your new deck?</Label>
+                  <Input
+                    onChangeText={(title) => this.setState({ title })}
+                    value={title}
+                  />
+                </Item>
+              </CardItem>
+              <CardItem footer>
+                <Button
+                  dark
+                  disabled={!title.length}
+                  onPress={this.handleSubmit}
+                >
+                  <Text>Create Deck</Text>
+                </Button>
+              </CardItem>
+            </Card>
+          </KeyboardAvoidingView>
+        </Content>
+      </Container>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    width: 200
-  }
-})
-
 export default connect(null, {
-  addDeck
+  saveDeckTitle
 })(NewDeck)

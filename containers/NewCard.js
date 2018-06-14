@@ -2,7 +2,7 @@ import { Button, Text } from 'native-base'
 import React from 'react'
 import { KeyboardAvoidingView, StyleSheet, TextInput } from 'react-native'
 import { connect } from 'react-redux'
-import { addCard } from '../actions'
+import { addCardToDeck } from '../actions'
 
 class NewCard extends React.Component {
   state = {
@@ -11,13 +11,15 @@ class NewCard extends React.Component {
   }
 
   handleSubmit = () => {
-    if (!!this.state.question.length && !!this.state.answer.length) {
-      const { navigation } = this.props
+    const { addCardToDeck, navigation } = this.props
+    const { answer, question } = this.state
+
+    if (!!question.length && !!answer.length) {
       const title = navigation.getParam('title', 'NO DECK FOUND')
 
-      this.props.addCard(title, this.state).then(() => {
+      addCardToDeck(title, this.state).then(() => {
         this.setState({ question: '', answer: '' })
-        navigation.goBack();
+        navigation.goBack()
       })
     }
   }
@@ -59,5 +61,5 @@ const styles = StyleSheet.create({
 })
 
 export default connect(null, {
-  addCard
+  addCardToDeck
 })(NewCard)

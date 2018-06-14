@@ -6,12 +6,14 @@ class DeckDetail extends React.Component {
   render() {
     const { deck, navigation } = this.props
     const title = navigation.getParam('title', 'NO DECK FOUND')
-    const count = deck.questions.length
+    const totalQuestions = deck.questions.length
 
     return (
       <Content>
         <Text>{title}</Text>
-        <Text note>{`${count} ${count > 1 ? 'cards' : 'card'}`}</Text>
+        <Text note>
+          {`${totalQuestions} ${totalQuestions > 1 ? 'cards' : 'card'}`}
+        </Text>
         <Button light onPress={() => navigation.navigate('newCard', { title })}>
           <Text>Create New Question</Text>
         </Button>

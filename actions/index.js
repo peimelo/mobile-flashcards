@@ -4,9 +4,9 @@ export const ADD_CARD_SUCCESS = 'ADD_CARD_SUCCESS'
 export const ADD_DECK_SUCCESS = 'ADD_DECK_SUCCESS'
 export const FETCH_DECKS_SUCCESS = 'FETCH_DECKS_SUCCESS'
 
-export function addCard(title, card) {
+export function addCardToDeck(title, card) {
   return dispatch => {
-    return DecksAPI.addCard(title, card)
+    return DecksAPI.addCardToDeck(title, card)
       .then(() => dispatch(addCardSuccess(title, card)))
   }
 }
@@ -16,9 +16,9 @@ export const addCardSuccess = (title, card) => ({
   payload: { title, card }
 })
 
-export function addDeck(title) {
+export function saveDeckTitle(title) {
   return dispatch => {
-    return DecksAPI.addDeck(title)
+    return DecksAPI.saveDeckTitle(title)
       .then(() => dispatch(addDeckSuccess(title)))
   }
 }
@@ -30,7 +30,7 @@ export const addDeckSuccess = (title) => ({
 
 export function fetchDecks() {
   return dispatch => {
-    return DecksAPI.getAll()
+    return DecksAPI.getDecks()
       .then(data => dispatch(fetchDecksSuccess(data)))
   }
 }
