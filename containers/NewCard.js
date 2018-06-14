@@ -1,6 +1,16 @@
-import { Button, Text } from 'native-base'
+import {
+  Button,
+  Card,
+  CardItem,
+  Container,
+  Content,
+  Input,
+  Item,
+  Label,
+  Text
+} from 'native-base'
 import React from 'react'
-import { KeyboardAvoidingView, StyleSheet, TextInput } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { addCardToDeck } from '../actions'
 
@@ -25,23 +35,43 @@ class NewCard extends React.Component {
   }
 
   render() {
+    const { answer, question } = this.state
 
     return (
-      <KeyboardAvoidingView style={styles.container} behavior='padding'>
-        <Text>Question</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(question) => this.setState({ question })}
-          value={this.state.question}
-        />
-        <Text>Answer</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(answer) => this.setState({ answer })}
-          value={this.state.answer}
-        />
-        <Button primary onPress={this.handleSubmit}><Text>Submit</Text></Button>
-      </KeyboardAvoidingView>
+      <Container>
+        <Content padder>
+          <KeyboardAvoidingView behavior='padding'>
+            <Card>
+              <CardItem>
+                <Item floatingLabel last>
+                  <Label>Question</Label>
+                  <Input
+                    onChangeText={(question) => this.setState({ question })}
+                    value={this.state.question}
+                  />
+                </Item>
+              </CardItem>
+              <CardItem>
+                <Item floatingLabel last>
+                  <Label>Answer</Label>
+                  <Input
+                    onChangeText={(answer) => this.setState({ answer })}
+                    value={this.state.answer}
+                  />
+                </Item>
+              </CardItem>
+            </Card>
+            <Button
+              dark
+              full
+              disabled={!question.length || !answer.length}
+              onPress={this.handleSubmit}
+            >
+              <Text>Submit</Text>
+            </Button>
+          </KeyboardAvoidingView>
+        </Content>
+      </Container>
     )
   }
 }

@@ -1,4 +1,4 @@
-import { Button, Content, Text } from 'native-base'
+import { Button, Card, CardItem, Container, Content, Text } from 'native-base'
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -9,18 +9,35 @@ class DeckDetail extends React.Component {
     const totalQuestions = deck.questions.length
 
     return (
-      <Content>
-        <Text>{title}</Text>
-        <Text note>
-          {`${totalQuestions} ${totalQuestions > 1 ? 'cards' : 'card'}`}
-        </Text>
-        <Button light onPress={() => navigation.navigate('newCard', { title })}>
-          <Text>Create New Question</Text>
-        </Button>
-        <Button dark onPress={() => navigation.navigate('quiz', { title })}>
-          <Text>Start a Quiz</Text>
-        </Button>
-      </Content>
+      <Container>
+        <Content padder>
+          <Card>
+            <CardItem>
+              <Text>{title}</Text>
+            </CardItem>
+            <CardItem>
+              <Text note>
+                {`${totalQuestions} ${totalQuestions > 1 ? 'cards' : 'card'}`}
+              </Text>
+            </CardItem>
+          </Card>
+          <Button
+            light
+            full
+            onPress={() => navigation.navigate('newCard', { title })}
+          >
+            <Text>Create New Question</Text>
+          </Button>
+          <Button
+            dark
+            full
+            disabled={!totalQuestions}
+            onPress={() => navigation.navigate('quiz', { title })}
+          >
+            <Text>Start a Quiz</Text>
+          </Button>
+        </Content>
+      </Container>
     )
   }
 }

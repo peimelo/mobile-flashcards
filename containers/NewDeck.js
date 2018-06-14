@@ -51,16 +51,15 @@ class NewDeck extends React.Component {
                   />
                 </Item>
               </CardItem>
-              <CardItem footer>
-                <Button
-                  dark
-                  disabled={!title.length}
-                  onPress={this.handleSubmit}
-                >
-                  <Text>Create Deck</Text>
-                </Button>
-              </CardItem>
             </Card>
+            <Button
+              dark
+              full
+              disabled={!title.length}
+              onPress={this.handleSubmit}
+            >
+              <Text>Create Deck</Text>
+            </Button>
           </KeyboardAvoidingView>
         </Content>
       </Container>

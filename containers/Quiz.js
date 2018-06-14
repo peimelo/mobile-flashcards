@@ -1,10 +1,14 @@
-import { Button, Text } from 'native-base'
-import React from 'react'
 import {
-  StyleSheet,
-  TouchableOpacity,
-  View
-} from 'react-native'
+  Body,
+  Button,
+  Card,
+  CardItem,
+  Container,
+  Content,
+  Text
+} from 'native-base'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
 
 class Quiz extends React.Component {
@@ -36,19 +40,33 @@ class Quiz extends React.Component {
 
     return (
       <View>
-        <Text>
-          {showQuestion
-            ? deck.questions[currentQuestion].question
-            : deck.questions[currentQuestion].answer
-          }
-        </Text>
-        <TouchableOpacity
-          onPress={() => this.setState({ showQuestion: !this.state.showQuestion })}
-        >
-          <Text>Show {showQuestion ? 'Answer' : 'Question'}</Text>
-        </TouchableOpacity>
+        <Card>
+          <CardItem header bordered>
+            <Text>{showQuestion ? 'Question' : 'Answer'}</Text>
+          </CardItem>
+          <CardItem>
+            <Text>
+              {showQuestion
+                ? deck.questions[currentQuestion].question
+                : deck.questions[currentQuestion].answer
+              }
+            </Text>
+          </CardItem>
+          <CardItem
+            footer
+            bordered
+            button
+            onPress={() => this.setState({ showQuestion: !this.state.showQuestion })}
+          >
+            <Body>
+            <Text>Show {showQuestion ? 'Answer' : 'Question'}</Text>
+            </Body>
+          </CardItem>
+
+        </Card>
         <Button
           success
+          full
           disabled={showQuestion}
           onPress={() => this.handleAnswer(1)}
         >
@@ -56,6 +74,7 @@ class Quiz extends React.Component {
         </Button>
         <Button
           danger
+          full
           disabled={showQuestion}
           onPress={() => this.handleAnswer(0)}
         >
@@ -72,21 +91,38 @@ class Quiz extends React.Component {
 
     if (currentQuestion < totalQuestions) {
       return (
-        <View>
-          <Text>{`${currentQuestion + 1}/${totalQuestions}`}</Text>
-          {this.showQuestionOrAnswer()}
-        </View>
+        <Container>
+          <Content padder>
+            <Text>{`${currentQuestion + 1}/${totalQuestions}`}</Text>
+            {this.showQuestionOrAnswer()}
+          </Content>
+        </Container>
       )
     }
 
     return (
-      <View>
-        <Text>Corrects: {correctAnswers}</Text>
-        <Text>Incorrects: {totalQuestions - correctAnswers}</Text>
-        <Button dark onPress={this.handleRestart}>
-          <Text>Restart Quiz</Text>
-        </Button>
-      </View>
+      <Container>
+        <Content padder>
+          <Card>
+            <CardItem header>
+              <Text>Score</Text>
+            </CardItem>
+            <CardItem>
+              <Text>Corrects: {correctAnswers}</Text>
+            </CardItem>
+            <CardItem>
+              <Text>Incorrects: {totalQuestions - correctAnswers}</Text>
+            </CardItem>
+          </Card>
+          <Button
+            dark
+            full
+            onPress={this.handleRestart}
+          >
+            <Text>Restart Quiz</Text>
+          </Button>
+        </Content>
+      </Container>
     )
   }
 }
