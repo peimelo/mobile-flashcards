@@ -5,14 +5,17 @@ import {
   CardItem,
   Container,
   Content,
-  Text
+  Text,
+  View
 } from 'native-base'
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Animated } from 'react-native'
 import { connect } from 'react-redux'
+import { styles } from '../styles'
 
 class Quiz extends React.Component {
   state = {
+    fadeAnim: new Animated.Value(0),
     showQuestion: true,
     currentQuestion: 0,
     correctAnswers: 0
@@ -28,6 +31,7 @@ class Quiz extends React.Component {
 
   handleRestart = () => {
     this.setState({
+      fadeAnim: new Animated.Value(0),
       showQuestion: true,
       currentQuestion: 0,
       correctAnswers: 0
@@ -45,7 +49,7 @@ class Quiz extends React.Component {
             <Text>{showQuestion ? 'Question' : 'Answer'}</Text>
           </CardItem>
           <CardItem>
-            <Text>
+            <Text style={styles.textSize}>
               {showQuestion
                 ? deck.questions[currentQuestion].question
                 : deck.questions[currentQuestion].answer
@@ -59,14 +63,16 @@ class Quiz extends React.Component {
             onPress={() => this.setState({ showQuestion: !this.state.showQuestion })}
           >
             <Body>
-            <Text>Show {showQuestion ? 'Answer' : 'Question'}</Text>
+            <Text style={styles.red}>
+              Show {showQuestion ? 'Answer' : 'Question'}
+            </Text>
             </Body>
           </CardItem>
-
         </Card>
         <Button
           success
           full
+          style={styles.button}
           disabled={showQuestion}
           onPress={() => this.handleAnswer(1)}
         >
@@ -75,6 +81,7 @@ class Quiz extends React.Component {
         <Button
           danger
           full
+          style={styles.button}
           disabled={showQuestion}
           onPress={() => this.handleAnswer(0)}
         >
@@ -85,7 +92,7 @@ class Quiz extends React.Component {
   }
 
   render() {
-    const { correctAnswers, currentQuestion } = this.state
+    const { correctAnswers, currentQuestion, fadeAnim } = this.state
     const { deck } = this.props
     const totalQuestions = deck.questions.length
 
@@ -98,20 +105,32 @@ class Quiz extends React.Component {
           </Content>
         </Container>
       )
+    } else {
+      Animated.timing(
+        this.state.fadeAnim,
+        {
+          toValue: 1,
+          duration: 1500
+        }
+      ).start()
     }
 
     return (
       <Container>
         <Content padder>
           <Card>
-            <CardItem header>
+            <CardItem header bordered>
               <Text>Score</Text>
             </CardItem>
             <CardItem>
-              <Text>Corrects: {correctAnswers}</Text>
+              <Animated.Text style={[styles.textSize, { opacity: fadeAnim }]}>
+                Corrects: {correctAnswers}
+                </Animated.Text>
             </CardItem>
             <CardItem>
-              <Text>Incorrects: {totalQuestions - correctAnswers}</Text>
+              <Animated.Text style={[styles.textSize, { opacity: fadeAnim }]}>
+                Incorrects: {totalQuestions - correctAnswers}
+                </Animated.Text>
             </CardItem>
           </Card>
           <Button
@@ -126,20 +145,6 @@ class Quiz extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    width: 200
-  }
-})
 
 const mapStateToProps = (state, ownProps) => ({
   deck: state[ownProps.navigation.getParam('title')]

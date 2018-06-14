@@ -9,7 +9,7 @@ import { setLocalNotification } from './utils/helpers'
 
 export default class App extends React.Component {
   state = {
-    loading: true
+    isLoading: true
   }
 
   async componentWillMount() {
@@ -17,7 +17,7 @@ export default class App extends React.Component {
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf')
     })
-    this.setState({ loading: false })
+    this.setState({ isLoading: false })
   }
 
   componentDidMount() {
@@ -25,16 +25,16 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { loading } = this.state
+    const { isLoading } = this.state
 
-    if (loading) {
+    if (isLoading) {
       return <AppLoading />
     }
 
     return (
       <Provider store={store}>
         <Root>
-          <FlashStatusBar backgroundColor="blue" barStyle="light-content" />
+          <FlashStatusBar backgroundColor="steelblue" barStyle="light-content" />
           <MainNavigator />
         </Root>
       </Provider>

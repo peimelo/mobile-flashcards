@@ -10,7 +10,7 @@ import {
   Text
 } from 'native-base'
 import React from 'react'
-import { KeyboardAvoidingView, StyleSheet } from 'react-native'
+import { KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { addCardToDeck } from '../actions'
 
@@ -75,20 +75,6 @@ class NewCard extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    width: 300
-  }
-})
 
 export default connect(null, {
   addCardToDeck

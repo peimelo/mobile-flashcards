@@ -1,6 +1,7 @@
 import { Button, Card, CardItem, Container, Content, Text } from 'native-base'
 import React from 'react'
 import { connect } from 'react-redux'
+import { styles } from '../styles'
 
 class DeckDetail extends React.Component {
   render() {
@@ -24,6 +25,7 @@ class DeckDetail extends React.Component {
           <Button
             light
             full
+            style={styles.button}
             onPress={() => navigation.navigate('newCard', { title })}
           >
             <Text>Create New Question</Text>
@@ -31,6 +33,7 @@ class DeckDetail extends React.Component {
           <Button
             dark
             full
+            style={styles.button}
             disabled={!totalQuestions}
             onPress={() => navigation.navigate('quiz', { title })}
           >

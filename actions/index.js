@@ -1,4 +1,4 @@
-import * as DecksAPI from '../utils/DecksAPI'
+import * as DecksAPI from '../utils/api'
 
 export const ADD_CARD_SUCCESS = 'ADD_CARD_SUCCESS'
 export const ADD_DECK_SUCCESS = 'ADD_DECK_SUCCESS'

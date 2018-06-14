@@ -2,8 +2,8 @@ import { Content, Left, ListItem, Right, Text } from 'native-base'
 import React from 'react'
 import { FlatList } from 'react-native'
 import { connect } from 'react-redux'
+import sortBy from 'sort-by'
 import { fetchDecks } from '../actions'
-import sortBy from 'sort-by';
 
 class Decks extends React.Component {
   componentDidMount() {
